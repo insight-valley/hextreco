@@ -14,7 +14,10 @@ import { SidebarSearchModal } from '@backstage/plugin-search';
 import { UserSettingsSignInAvatar } from '@backstage/plugin-user-settings';
 import { NotificationsSidebarItem } from '@backstage/plugin-notifications';
 
-export const SidebarContent = NavContentBlueprint.make({
+// Annotated as `any` to avoid a non-portable inferred type pointing at
+// a nested `node_modules/@backstage/frontend-plugin-api`. Same root cause
+// as the cast in modules/nav/index.ts.
+export const SidebarContent: any = NavContentBlueprint.make({
   params: {
     component: ({ navItems }) => {
       const nav = navItems.withComponent(item => (
