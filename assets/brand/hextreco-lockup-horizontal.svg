@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 380" role="img" aria-label="Hextreco">
+  <defs>
+    <radialGradient id="lk_halo" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#c83ea7" stop-opacity="0.5"/>
+      <stop offset="55%" stop-color="#9650c0" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#110e1b" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="lk_gem" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c83ea7"/>
+      <stop offset="100%" stop-color="#7a409b"/>
+    </linearGradient>
+    <linearGradient id="lk_gemDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9650c0"/>
+      <stop offset="100%" stop-color="#7a409b"/>
+    </linearGradient>
+    <linearGradient id="lk_gemLight" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#c83ea7"/>
+      <stop offset="100%" stop-color="#9650c0"/>
+    </linearGradient>
+    <radialGradient id="lk_spark" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#f8f8f9"/>
+      <stop offset="35%" stop-color="#dea627"/>
+      <stop offset="100%" stop-color="#dea627" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="lk_word" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f8f8f9"/>
+      <stop offset="100%" stop-color="#f8f8f9"/>
+    </linearGradient>
+  </defs>
+
+  <!-- MARK (scaled, left-aligned). Original mark viewBox 512×512; here we place it centred vertically. -->
+  <g transform="translate(10,-66) scale(0.95)">
+    <circle cx="256" cy="256" r="240" fill="url(#lk_halo)"/>
+    <polygon points="256,56 429.21,156 429.21,356 256,456 82.79,356 82.79,156"
+             fill="none" stroke="#9650c0" stroke-width="6" stroke-linejoin="round"/>
+    <polygon points="256,86 403.22,171 403.22,341 256,426 108.78,341 108.78,171"
+             fill="#1a1528" stroke="#c83ea7" stroke-width="2" stroke-linejoin="round" opacity="0.85"/>
+    <g fill="#c83ea7">
+      <rect x="252" y="22" width="8" height="26" rx="1"/>
+      <rect x="448" y="142" width="26" height="8" rx="1" transform="rotate(60 461 146)"/>
+      <rect x="448" y="362" width="26" height="8" rx="1" transform="rotate(-60 461 366)"/>
+      <rect x="252" y="464" width="8" height="26" rx="1"/>
+      <rect x="38" y="362" width="26" height="8" rx="1" transform="rotate(60 51 366)"/>
+      <rect x="38" y="142" width="26" height="8" rx="1" transform="rotate(-60 51 146)"/>
+    </g>
+    <polygon points="256,140 172,256 256,256" fill="url(#lk_gemDark)"/>
+    <polygon points="256,140 340,256 256,256" fill="url(#lk_gemLight)"/>
+    <polygon points="172,256 256,372 256,256" fill="url(#lk_gem)"/>
+    <polygon points="340,256 256,372 256,256" fill="url(#lk_gemDark)"/>
+    <polygon points="256,140 340,256 256,372 172,256"
+             fill="none" stroke="#f8f8f9" stroke-width="2.5" stroke-linejoin="round"/>
+    <line x1="172" y1="256" x2="340" y2="256" stroke="#f8f8f9" stroke-width="1.5" opacity="0.7"/>
+    <line x1="256" y1="140" x2="256" y2="372" stroke="#f8f8f9" stroke-width="1.5" opacity="0.4"/>
+    <circle cx="256" cy="256" r="22" fill="url(#lk_spark)"/>
+    <circle cx="256" cy="256" r="4" fill="#f8f8f9"/>
+    <rect x="338" y="252" width="14" height="8" rx="1" fill="#dea627"/>
+  </g>
+
+  <!-- WORDMARK "HEXTRECO" — geometric, paths. Origin at x=540, baseline ~y=265, cap height 130 -->
+  <!-- Each letter occupies 110 width, stroke thickness 22, gap 28 between letters -->
+  <!-- Reusable building blocks via inline paths. Letters defined by filled polygons of stroke width 22. -->
+
+  <g fill="#f8f8f9">
+    <!-- H at x=540 -->
+    <rect x="540" y="135" width="22" height="130"/>
+    <rect x="628" y="135" width="22" height="130"/>
+    <rect x="562" y="189" width="66" height="22"/>
+
+    <!-- E at x=678 -->
+    <rect x="678" y="135" width="22" height="130"/>
+    <rect x="700" y="135" width="88" height="22"/>
+    <rect x="700" y="189" width="70" height="22"/>
+    <rect x="700" y="243" width="88" height="22"/>
+
+    <!-- X at x=816 — two diagonals via polygons -->
+    <!-- diag TL→BR: from (816,135) to (926,265), stroke thickness 22 -->
+    <polygon points="816,135 838,135 926,265 904,265"/>
+    <polygon points="904,135 926,135 838,265 816,265"/>
+
+    <!-- T at x=954 -->
+    <rect x="954" y="135" width="110" height="22"/>
+    <rect x="998" y="157" width="22" height="108"/>
+
+    <!-- R at x=1092 — bowl approximated as rect + diagonal leg -->
+    <rect x="1092" y="135" width="22" height="130"/>
+    <rect x="1114" y="135" width="74" height="22"/>
+    <rect x="1166" y="135" width="22" height="74"/>
+    <rect x="1114" y="189" width="74" height="22"/>
+    <!-- diagonal leg from (1166,211) to (1202,265) -->
+    <polygon points="1166,211 1188,211 1212,265 1190,265"/>
+
+    <!-- E at x=1230 -->
+    <rect x="1230" y="135" width="22" height="130"/>
+    <rect x="1252" y="135" width="88" height="22"/>
+    <rect x="1252" y="189" width="70" height="22"/>
+    <rect x="1252" y="243" width="88" height="22"/>
+
+    <!-- C at x=1368 — open square minus right -->
+    <rect x="1368" y="135" width="22" height="130"/>
+    <rect x="1390" y="135" width="88" height="22"/>
+    <rect x="1390" y="243" width="88" height="22"/>
+
+    <!-- O at x=1506 — hexagonal O to echo the mark (deliberate brand callback) -->
+    <polygon points="1506,200 1531,157 1581,157 1606,200 1581,243 1531,243"
+             fill="none" stroke="#f8f8f9" stroke-width="22" stroke-linejoin="miter"/>
+  </g>
+
+  <!-- pink accent dot under the X — micro "treco" wink -->
+  <circle cx="871" cy="295" r="6" fill="#c83ea7"/>
+  <!-- yellow accent tick under the O — closes the wordmark with the mark's spark color -->
+  <rect x="1551" y="289" width="14" height="6" fill="#dea627"/>
+</svg>
