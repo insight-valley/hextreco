@@ -20,7 +20,8 @@
     "lint": "backstage-cli repo lint --since origin/main",
     "lint:all": "backstage-cli repo lint",
     "prettier:check": "prettier --check .",
-    "new": "backstage-cli new"
+    "new": "backstage-cli new",
+    "prepare": "husky"
   },
   "backstage": {
     "cli": {
@@ -43,8 +44,10 @@
     "@playwright/test": "^1.32.3",
     "@types/jest": "^30.0.0",
     "eslint-plugin-jest": "^29.15.2",
+    "husky": "^9.1.7",
     "jest": "^30.2.0",
     "jsdom": "^27.1.0",
+    "lint-staged": "^17.0.4",
     "node-gyp": "^10.0.0",
     "prettier": "^2.3.2",
     "typescript": "~5.8.0"
