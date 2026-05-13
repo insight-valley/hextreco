@@ -13,9 +13,13 @@ import {
 /**
  * Hextreco metrics plugin.
  *
- * Registers a Prometheus exporter under the plugin path `/api/metrics`,
- * plus a request counter and a latency histogram wired into the root
- * Express router. The default Node.js process metrics are collected too.
+ * Registers a Prometheus exporter at `/api/metrics`, plus an HTTP
+ * request counter and latency histogram that observe every response
+ * served by the plugin router. Default Node.js process metrics are
+ * collected with the `hextreco_` prefix.
+ *
+ * The endpoint is unauthenticated so the local Prometheus container
+ * can scrape it on `host.docker.internal:7007`.
  */
 export const metricsPlugin = createBackendPlugin({
   pluginId: 'metrics',
@@ -23,35 +27,37 @@ export const metricsPlugin = createBackendPlugin({
     env.registerInit({
       deps: {
         httpRouter: coreServices.httpRouter,
-        rootHttpRouter: coreServices.rootHttpRouter,
         logger: coreServices.logger,
       },
-      async init({ httpRouter, rootHttpRouter, logger }) {
-        // Register default Node.js process metrics once.
-        collectDefaultMetrics({ register, prefix: 'hextreco_' });
+      async init({ httpRouter, logger }) {
+        // Default Node.js process metrics. Registered idempotently so a
+        // hot reload during development does not throw.
+        try {
+          collectDefaultMetrics({ register, prefix: 'hextreco_' });
+        } catch {
+          // already registered — ignore
+        }
 
         const httpRequestsTotal = new Counter({
           name: 'http_requests_total',
-          help: 'Total HTTP requests handled by the Backstage backend.',
-          labelNames: ['method', 'route', 'status'] as const,
+          help: 'Total HTTP requests handled by the metrics plugin router.',
+          labelNames: ['method', 'status'] as const,
         });
 
         const httpRequestDuration = new Histogram({
           name: 'http_request_duration_seconds',
           help: 'HTTP request duration in seconds.',
-          labelNames: ['method', 'route', 'status'] as const,
+          labelNames: ['method', 'status'] as const,
           buckets: [0.01, 0.05, 0.1, 0.3, 0.6, 1, 3, 6, 10],
         });
 
-        // Middleware on the root router so every backend route is counted.
-        const middleware = Router();
-        middleware.use((req, res, next) => {
+        const router = Router();
+
+        router.use((req, res, next) => {
           const end = httpRequestDuration.startTimer();
           res.on('finish', () => {
-            const route = req.route?.path ?? req.baseUrl ?? req.path ?? 'unknown';
             const labels = {
               method: req.method,
-              route: String(route),
               status: String(res.statusCode),
             };
             httpRequestsTotal.inc(labels);
@@ -59,11 +65,7 @@ export const metricsPlugin = createBackendPlugin({
           });
           next();
         });
-        rootHttpRouter.use('/', middleware);
 
-        // Expose the /metrics endpoint under the plugin path
-        // (resolves to /api/metrics) and allow unauthenticated scrapes.
-        const router = Router();
         router.get('/', async (_req, res) => {
           try {
             res.set('Content-Type', register.contentType);
@@ -73,7 +75,12 @@ export const metricsPlugin = createBackendPlugin({
             res.status(500).end();
           }
         });
-        httpRouter.use(router);
+
+        // Cast smooths over a duplicated @types/express-serve-static-core
+        // chain in the dependency tree; the runtime contract is plain
+        // Express middleware in both cases.
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        httpRouter.use(router as any);
         httpRouter.addAuthPolicy({ path: '/', allow: 'unauthenticated' });
 
         logger.info('Hextreco metrics plugin ready at /api/metrics');

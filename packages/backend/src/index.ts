@@ -67,7 +67,9 @@ backend.add(import('@backstage/plugin-kubernetes-backend'));
 backend.add(import('@backstage/plugin-notifications-backend'));
 backend.add(import('@backstage/plugin-signals-backend'));
 
-// mcp actions plugin
-backend.add(import('@backstage/plugin-mcp-actions-backend'));
+// mcp actions plugin — disabled in milestone 0. The plugin ships in the
+// 1.50 scaffold template but its action-discovery handshake stalls under
+// the 1.41 release pin. Re-enable when the release catches up.
+// backend.add(import('@backstage/plugin-mcp-actions-backend'));
 
 backend.start();
