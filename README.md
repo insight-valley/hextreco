@@ -69,9 +69,9 @@ curl -s http://localhost:3030/api/public/health  # → {"status":"OK", ...}
 docker exec hextreco-grafana wget -qO- http://localhost:3000/api/health
 ```
 
-The Grafana check goes through `docker exec` because the host port is
-already in use on Gabriel's setup — `http://localhost:3002` in the
-browser works fine.
+The Grafana check goes through `docker exec` because the host port
+is already in use on Gabriel's setup. The browser at
+`http://localhost:3002` works fine.
 
 ## Layout
 
