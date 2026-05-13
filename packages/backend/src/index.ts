@@ -7,8 +7,12 @@
  */
 
 import { createBackend } from '@backstage/backend-defaults';
+import { metricsPlugin } from './plugins/metrics';
 
 const backend = createBackend();
+
+// Hextreco — Prometheus metrics exporter at /api/metrics
+backend.add(metricsPlugin);
 
 backend.add(import('@backstage/plugin-app-backend'));
 backend.add(import('@backstage/plugin-proxy-backend'));
