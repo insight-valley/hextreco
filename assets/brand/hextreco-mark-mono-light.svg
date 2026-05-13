@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Hextreco mark (mono, for dark backgrounds)">
+  <rect width="512" height="512" fill="none"/>
+
+  <!-- outer hexagon -->
+  <polygon points="256,56 429.21,156 429.21,356 256,456 82.79,356 82.79,156"
+           fill="none" stroke="#f8f8f9" stroke-width="6" stroke-linejoin="round"/>
+
+  <!-- inner hexagon ring -->
+  <polygon points="256,86 403.22,171 403.22,341 256,426 108.78,341 108.78,171"
+           fill="none" stroke="#f8f8f9" stroke-width="2" stroke-linejoin="round" opacity="0.6"/>
+
+  <!-- six rune ticks -->
+  <g fill="#f8f8f9">
+    <rect x="252" y="22" width="8" height="26" rx="1"/>
+    <rect x="448" y="142" width="26" height="8" rx="1" transform="rotate(60 461 146)"/>
+    <rect x="448" y="362" width="26" height="8" rx="1" transform="rotate(-60 461 366)"/>
+    <rect x="252" y="464" width="8" height="26" rx="1"/>
+    <rect x="38" y="362" width="26" height="8" rx="1" transform="rotate(60 51 366)"/>
+    <rect x="38" y="142" width="26" height="8" rx="1" transform="rotate(-60 51 146)"/>
+  </g>
+
+  <!-- gem outline + facets (all stroke, no fill) -->
+  <polygon points="256,140 340,256 256,372 172,256"
+           fill="none" stroke="#f8f8f9" stroke-width="3" stroke-linejoin="round"/>
+  <line x1="172" y1="256" x2="340" y2="256" stroke="#f8f8f9" stroke-width="2"/>
+  <line x1="256" y1="140" x2="256" y2="372" stroke="#f8f8f9" stroke-width="2" opacity="0.55"/>
+
+  <!-- spark core -->
+  <circle cx="256" cy="256" r="10" fill="#f8f8f9"/>
+  <!-- asymmetric notch -->
+  <rect x="338" y="252" width="14" height="8" rx="1" fill="#f8f8f9"/>
+</svg>
