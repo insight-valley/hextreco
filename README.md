@@ -14,7 +14,16 @@ Fase 1: ambiente local. Repo recém-criado, Backstage ainda não scaffolded.
 
 ## Como rodar
 
-Em breve. Quando o scaffold subir, o passo a passo entra aqui (clone, docker compose up do Postgres, dev server local).
+Pré-requisitos: Node 22 (via `nvm use`), Yarn (via Corepack), Docker. Depois:
+
+```sh
+cp .env.example .env   # preencha LANGFUSE_* e POSTGRES_*
+make reset             # mata procs órfãos em :3000/:7007 + sobe infra
+make dev               # backend (:7007) + frontend (:3000)
+make doctor            # smoke check em outro terminal
+```
+
+`make help` lista todos os targets. O `Makefile` carrega o `.env` antes de subir o backend — sem isso, `app-config.local.yaml` resolve `${POSTGRES_PASSWORD}` como vazio e o backend morre com `SASL: client password must be a string`.
 
 ## Doc-as-blog
 
