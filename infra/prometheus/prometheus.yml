@@ -1,0 +1,20 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    cluster: hextreco-local
+
+scrape_configs:
+  - job_name: prometheus
+    static_configs:
+      - targets: ["localhost:9090"]
+
+  # Backstage backend runs on the host (yarn dev), reachable via
+  # host.docker.internal from inside the prometheus container.
+  - job_name: backstage-backend
+    metrics_path: /api/metrics
+    static_configs:
+      - targets: ["host.docker.internal:7007"]
+        labels:
+          service: backstage
+          component: backend

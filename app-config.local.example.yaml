@@ -1,0 +1,19 @@
+# Hextreco — template for app-config.local.yaml.
+# Copy this file to app-config.local.yaml (gitignored) and adjust as needed.
+# Backstage auto-merges *.local.yaml on top of app-config.yaml in dev.
+#
+# Connects the backend to the Postgres instance from docker-compose.yml,
+# using the credentials defined in .env (copied from .env.example).
+
+backend:
+  database:
+    client: pg
+    connection:
+      host: ${POSTGRES_HOST}
+      port: ${POSTGRES_PORT}
+      user: ${POSTGRES_USER}
+      password: ${POSTGRES_PASSWORD}
+      database: ${POSTGRES_DB}
+  auth:
+    keys:
+      - secret: ${BACKEND_SECRET}
