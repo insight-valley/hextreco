@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Hextreco mark">
+  <defs>
+    <radialGradient id="halo" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#c83ea7" stop-opacity="0.55"/>
+      <stop offset="55%" stop-color="#9650c0" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#110e1b" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="gem" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c83ea7"/>
+      <stop offset="100%" stop-color="#7a409b"/>
+    </linearGradient>
+    <linearGradient id="gemDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9650c0"/>
+      <stop offset="100%" stop-color="#7a409b"/>
+    </linearGradient>
+    <linearGradient id="gemLight" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#c83ea7"/>
+      <stop offset="100%" stop-color="#9650c0"/>
+    </linearGradient>
+    <radialGradient id="spark" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#f8f8f9"/>
+      <stop offset="35%" stop-color="#dea627"/>
+      <stop offset="100%" stop-color="#dea627" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- background plate (transparent — caller chooses) -->
+  <rect width="512" height="512" fill="none"/>
+
+  <!-- glow halo -->
+  <circle cx="256" cy="256" r="240" fill="url(#halo)"/>
+
+  <!-- outer hexagon (pointy-top): vertices at 90, 150, 210, 270, 330, 30 deg, r=200 -->
+  <polygon points="256,56 429.21,156 429.21,356 256,456 82.79,356 82.79,156"
+           fill="none" stroke="#9650c0" stroke-width="6" stroke-linejoin="round"/>
+
+  <!-- inner hexagon ring (slight inset, opacity for depth) -->
+  <polygon points="256,86 403.22,171 403.22,341 256,426 108.78,341 108.78,171"
+           fill="#1a1528" stroke="#c83ea7" stroke-width="2" stroke-linejoin="round" opacity="0.85"/>
+
+  <!-- six rune ticks at outer vertices (small bars pointing outward) -->
+  <g fill="#c83ea7">
+    <!-- top -->
+    <rect x="252" y="22" width="8" height="26" rx="1"/>
+    <!-- top-right -->
+    <rect x="448" y="142" width="26" height="8" rx="1" transform="rotate(60 461 146)"/>
+    <!-- bottom-right -->
+    <rect x="448" y="362" width="26" height="8" rx="1" transform="rotate(-60 461 366)"/>
+    <!-- bottom -->
+    <rect x="252" y="464" width="8" height="26" rx="1"/>
+    <!-- bottom-left -->
+    <rect x="38" y="362" width="26" height="8" rx="1" transform="rotate(60 51 366)"/>
+    <!-- top-left -->
+    <rect x="38" y="142" width="26" height="8" rx="1" transform="rotate(-60 51 146)"/>
+  </g>
+
+  <!-- faceted gem inside hex: octahedron projection
+       points: top (256,140), right (340,256), bottom (256,372), left (172,256)
+       horizontal midline + vertical axis create 4 facets -->
+  <!-- left facet (darker) -->
+  <polygon points="256,140 172,256 256,256" fill="url(#gemDark)"/>
+  <!-- top-right facet (light) -->
+  <polygon points="256,140 340,256 256,256" fill="url(#gemLight)"/>
+  <!-- bottom-left facet (mid) -->
+  <polygon points="172,256 256,372 256,256" fill="url(#gem)"/>
+  <!-- bottom-right facet (dark) -->
+  <polygon points="340,256 256,372 256,256" fill="url(#gemDark)"/>
+
+  <!-- gem outline -->
+  <polygon points="256,140 340,256 256,372 172,256"
+           fill="none" stroke="#f8f8f9" stroke-width="2.5" stroke-linejoin="round"/>
+  <!-- inner cross facets -->
+  <line x1="172" y1="256" x2="340" y2="256" stroke="#f8f8f9" stroke-width="1.5" opacity="0.7"/>
+  <line x1="256" y1="140" x2="256" y2="372" stroke="#f8f8f9" stroke-width="1.5" opacity="0.4"/>
+
+  <!-- treco spark: warm yellow core at gem centre (the human/maker touch) -->
+  <circle cx="256" cy="256" r="22" fill="url(#spark)"/>
+  <circle cx="256" cy="256" r="4" fill="#f8f8f9"/>
+
+  <!-- small asymmetric notch — breaks pure mystic symmetry (the "treco" wink) -->
+  <rect x="338" y="252" width="14" height="8" rx="1" fill="#dea627"/>
+</svg>

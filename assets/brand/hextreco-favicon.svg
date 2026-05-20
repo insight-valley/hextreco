@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Hextreco favicon">
+  <defs>
+    <linearGradient id="fav_gem" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c83ea7"/>
+      <stop offset="100%" stop-color="#7a409b"/>
+    </linearGradient>
+  </defs>
+
+  <!-- dark plate for legibility against any background -->
+  <rect width="32" height="32" rx="6" fill="#110e1b"/>
+
+  <!-- hexagon (pointy-top), r=12 around (16,16). Vertices: top, TR, BR, bottom, BL, TL -->
+  <polygon points="16,4 26.39,10 26.39,22 16,28 5.61,22 5.61,10"
+           fill="none" stroke="#9650c0" stroke-width="1.6" stroke-linejoin="round"/>
+
+  <!-- gem (diamond) inside -->
+  <polygon points="16,9 22,16 16,23 10,16" fill="url(#fav_gem)" stroke="#f8f8f9" stroke-width="0.8" stroke-linejoin="round"/>
+
+  <!-- treco spark -->
+  <circle cx="16" cy="16" r="1.6" fill="#dea627"/>
+</svg>
