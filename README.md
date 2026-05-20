@@ -6,7 +6,7 @@ written down in `docs/` and in the lab notes that travel back to the
 Insight control plane.
 
 Status: milestone 0, local environment scaffolded. Backstage is pinned
-to 1.41.0. The stack runs with Postgres, Prometheus, Grafana and a
+to 1.50.4. The stack runs with Postgres, Prometheus, Grafana and a
 self-hosted Langfuse v2 alongside it.
 
 ## Pre-requisites
@@ -40,14 +40,20 @@ that owns 3001 on his machine.
 ```sh
 git clone https://github.com/insight-valley/hextreco.git
 cd hextreco
-nvm use                  # picks up .nvmrc → Node 22
-cp .env.example .env     # then fill the LANGFUSE_* secrets
+nvm use                # picks up .nvmrc → Node 22
+cp .env.example .env   # then fill the LANGFUSE_* and POSTGRES_* secrets
 yarn install
-docker-compose up -d     # postgres, prometheus, grafana, langfuse
-yarn dev                 # starts Backstage frontend + backend together
+make reset             # kills stale procs on :3000/:7007 + brings infra up
+make dev               # Backstage backend (:7007) + frontend (:3000)
+make doctor            # smoke check in another terminal
 ```
 
-Generate the three Langfuse secrets before the first `up`:
+`make help` lists every target. The `Makefile` sources `.env` before
+starting the backend — without it, `app-config.local.yaml` resolves
+`${POSTGRES_PASSWORD}` to empty and the backend dies with
+`SASL: client password must be a string`.
+
+Generate the three Langfuse secrets before the first `make reset`:
 
 ```sh
 openssl rand -base64 32   # NEXTAUTH_SECRET
@@ -59,7 +65,7 @@ The Compose file refuses to start Langfuse if any of those are unset.
 
 ## Smoke checks
 
-After `docker-compose up -d` and `yarn dev` are both running:
+After `make reset` and `make dev` are both running:
 
 ```sh
 curl http://localhost:9090/-/healthy             # → "Prometheus Server is Healthy."
@@ -84,30 +90,23 @@ is already in use on Gabriel's setup. The browser at
 │   ├── prometheus/   Scrape config
 │   └── grafana/      Datasource + dashboard provisioning
 ├── docker-compose.yml
+├── Makefile
 └── docs/local-setup.md
 ```
 
 ## What works today
 
-- Backstage scaffolded on the 1.41.0 release pin (see `backstage.json`)
+- Backstage scaffolded on the 1.50.4 release pin (see `backstage.json`)
 - `/api/metrics` exporter wired into the backend, scraped by Prometheus
 - Grafana datasource + a "Backstage Overview" dashboard provisioned
 - Langfuse v2 reachable on `:3030` for the LLM observability lab
 - Pre-commit (lint-staged) and pre-push (`yarn tsc --noEmit`) hooks
 
-## Known limitations
+## Doc-as-blog
 
-The 1.41.0 release pin is the LTS proxy agreed on in
-`core-context/insight-valley/hextreco/DESIGN.md`. The
-`@backstage/create-app@0.8.2` scaffold, however, ships against
-Backstage 1.50, and some plugins it includes (the `catalog` plugin
-and `mcp-actions`) require a core service ref called
-`alpha.core.metrics` that 1.41's `backend-defaults` does not expose.
-The Backstage backend boots and `/api/metrics` works, but plugin
-initialization fails on that missing ref and the catalog API stays
-at 503 until either the release pin moves forward or the missing
-service is stubbed. The path forward is in
-`core-context/insight-valley/hextreco/blog-notes.md`.
+Cada etapa significativa do projeto vira post no blog do mantenedor.
+As lab notes cruas vivem no repositório de controle interno; os posts
+saem no Medium, Substack e blog próprio.
 
 ## Documentation
 
